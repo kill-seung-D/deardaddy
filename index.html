@@ -42,11 +42,8 @@
       <p class="text-[12px] mt-0.5 text-slate-400 tracking-wider" style="font-family:'Noto Serif KR',serif;font-weight:600">아빠를 위한 인생 안심 매뉴얼</p>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="saveCard()" class="w-9 h-9 rounded-full flex items-center justify-center border border-gray-300 transition-all active:scale-95" title="카드 이미지 저장">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      </button>
-      <button id="musicBtn" onclick="toggleMusic()" class="w-9 h-9 rounded-full flex items-center justify-center border border-gray-300 transition-all active:scale-95" title="배경음악">
-        <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <button id="musicBtn" onclick="toggleMusic()" class="w-9 h-9 rounded-full flex items-center justify-center border transition-all active:scale-95 border-emerald-400" title="배경음악" style="box-shadow:0 0 8px rgba(52,211,153,0.4);">
+        <svg id="musicIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" style="filter:drop-shadow(0 0 3px rgba(52,211,153,0.6)); transition:all 0.3s ease;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
       </button>
       <a href="articles.html" class="text-[12px] text-white px-4 py-2 rounded-full no-underline" style="background:#1f2937; font-weight:500;">아티클 보기</a>
     </div>
@@ -58,15 +55,8 @@
 
 <div class="min-h-screen w-full flex flex-col items-center justify-center px-4 pt-8 pb-10">
 
-  <!-- 카드 + 좌우 버튼 -->
-  <div class="flex items-center gap-3 w-full max-w-[480px]">
-
-    <!-- 왼쪽 버튼 -->
-    <button id="bp" onclick="prev()" class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-
-    <!-- 카드 -->
+  <!-- 카드 -->
+  <div class="w-full max-w-[400px]">
     <div id="card" class="card relative w-full rounded-[24px] overflow-hidden overflow-y-auto flex flex-col bg-white" style="aspect-ratio:9/16; box-shadow:0 8px 32px rgba(180,160,200,0.25), 0 2px 12px rgba(140,120,180,0.12);">
 
       <!-- 번호 -->
@@ -85,17 +75,17 @@
         <a id="article-link" href="articles.html" class="fade inline-block mt-6 text-[13px] text-gray-400 tracking-wider underline underline-offset-4" style="font-weight:400;">아티클 보러가기 →</a>
       </div>
     </div>
-
-    <!-- 오른쪽 버튼 -->
-    <button id="bn" onclick="next()" class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-
   </div>
 
-  <!-- 도트 네비게이션 -->
-  <div class="mt-[30px]">
+  <!-- 하단 네비게이션: 좌우 버튼 + 도트 -->
+  <div class="mt-6 flex items-center justify-center gap-5">
+    <button id="bp" onclick="prev()" class="w-10 h-10 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300 active:scale-95">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <div id="dots" class="flex gap-1.5 items-center justify-center"></div>
+    <button id="bn" onclick="next()" class="w-10 h-10 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300 active:scale-95">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
 
   <!-- 메시지 입력 (마지막 카드에서만 보임) -->
@@ -276,13 +266,20 @@ let musicPlaying = true;
 function toggleMusic() {
   const iframe = document.getElementById('ytPlayer');
   const btn = document.getElementById('musicBtn');
+  const icon = document.getElementById('musicIcon');
   if (musicPlaying) {
     iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    btn.style.opacity = '0.4';
+    btn.style.borderColor = '#d1d5db';
+    btn.style.boxShadow = 'none';
+    icon.style.stroke = '#9ca3af';
+    icon.style.filter = 'none';
     musicPlaying = false;
   } else {
     iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    btn.style.opacity = '1';
+    btn.style.borderColor = '#34d399';
+    btn.style.boxShadow = '0 0 8px rgba(52,211,153,0.4)';
+    icon.style.stroke = '#34d399';
+    icon.style.filter = 'drop-shadow(0 0 3px rgba(52,211,153,0.6))';
     musicPlaying = true;
   }
 }

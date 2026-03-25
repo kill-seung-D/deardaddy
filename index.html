@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DEAR DADDY</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          sans: ['Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','sans-serif'],
+          serif: ['Noto Serif KR','Apple SD Gothic Neo','Malgun Gothic','serif'],
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    body { font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif; background:#fafaf8; -webkit-font-smoothing:antialiased; }
+    * { font-family:inherit; word-break:keep-all; }
+    textarea { font-family:'Noto Serif KR','Apple SD Gothic Neo','Malgun Gothic',serif; }
+    .card { transition: background 0.5s ease; }
+    .fade { transition: opacity 0.35s ease, transform 0.35s ease; }
+    .fade.out { opacity:0; transform:translateY(12px); }
+    .ending { animation: fadeUp 0.6s ease-out; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.6); border-radius:10px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+  </style>
+</head>
+<body>
+
+<!-- 상단 고정 헤더 -->
+<div class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 px-5 md:px-10 py-3">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-xl tracking-[0.2em] text-slate-600" style="font-weight:700">DEAR DADDY</h1>
+      <p class="text-[12px] mt-0.5 text-slate-400 tracking-wider" style="font-family:'Noto Serif KR',serif;font-weight:600">아빠를 위한 인생 안심 매뉴얼</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="saveCard()" class="w-9 h-9 rounded-full flex items-center justify-center border border-gray-300 transition-all active:scale-95" title="카드 이미지 저장">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
+      <a href="articles.html" class="text-[12px] text-white px-4 py-2 rounded-full no-underline" style="background:#1f2937; font-weight:500;">아티클 보기</a>
+    </div>
+  </div>
+</div>
+
+<div class="min-h-screen w-full flex flex-col items-center justify-center px-4 pt-8 pb-10">
+
+  <!-- 카드 + 좌우 버튼 -->
+  <div class="flex items-center gap-3 w-full max-w-[480px]">
+
+    <!-- 왼쪽 버튼 -->
+    <button id="bp" onclick="prev()" class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <!-- 카드 -->
+    <div id="card" class="card relative w-full rounded-[24px] overflow-hidden overflow-y-auto flex flex-col bg-white" style="aspect-ratio:9/16; box-shadow:0 8px 32px rgba(180,160,200,0.25), 0 2px 12px rgba(140,120,180,0.12);">
+
+      <!-- 번호 -->
+      <div id="num" class="absolute top-5 right-5 text-gray-600 text-[11px] tracking-[0.3em] z-20" style="font-weight:300"></div>
+
+      <!-- 하단 이미지 배경 -->
+      <div class="absolute bottom-0 left-0 right-0 z-0" style="height:45%;">
+        <div class="w-full h-full" style="background:linear-gradient(to bottom, white 0%, transparent 20%); position:absolute; z-index:1;"></div>
+        <img src="card-bg.png" class="w-full h-full object-cover object-top" style="opacity:0.5;" />
+      </div>
+
+      <!-- 텍스트 영역 -->
+      <div class="relative z-10 flex-1 flex flex-col justify-center px-7 py-10">
+        <h2 id="title" class="fade text-[16px] leading-[1.3] text-gray-400 font-bold mb-[30px]" style="font-family:'Noto Sans KR',sans-serif"></h2>
+        <p id="body" class="fade text-[16px] leading-[2.1] text-gray-600" style="font-family:'Noto Serif KR',serif;font-weight:300"></p>
+        <a id="article-link" href="articles.html" class="fade inline-block mt-6 text-[13px] text-gray-400 tracking-wider underline underline-offset-4" style="font-weight:400;">아티클 보러가기 →</a>
+      </div>
+    </div>
+
+    <!-- 오른쪽 버튼 -->
+    <button id="bn" onclick="next()" class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center transition-all border border-gray-300">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+  </div>
+
+  <!-- 도트 네비게이션 -->
+  <div class="mt-[30px]">
+    <div id="dots" class="flex gap-1.5 items-center justify-center"></div>
+  </div>
+
+  <!-- 메시지 입력 (마지막 카드에서만 보임) -->
+  <div id="msg-area" class="mt-8 w-full max-w-[340px] hidden">
+    <!-- 입력 폼 (항상 보임) -->
+    <div id="msg-form">
+      <textarea id="msg-input" class="w-full rounded-2xl border border-gray-200 px-5 py-4 text-[14px] leading-[1.8] text-gray-700 resize-none focus:outline-none focus:border-gray-400 transition-all" rows="3" placeholder="아빠의 가장 아름다운 사치를 적어주세요..." style="font-family:'Noto Serif KR',serif; background:white;"></textarea>
+      <button onclick="sendMsg()" class="w-full mt-3 py-3 rounded-2xl text-[14px] text-white transition-all active:scale-[0.98]" style="background:#374151; font-weight:500;">보내기</button>
+    </div>
+    <!-- 저장된 메시지 목록 -->
+    <div id="msg-list" class="mt-6">
+      <h3 class="text-[13px] text-gray-400 mb-3" style="font-weight:500">아빠의 답장들</h3>
+      <div id="msg-items" class="space-y-3"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cards = [
+  {
+    num:"01",
+    title:"과거의 후회가 아빠를 괴롭힐 때",
+    body:"나쁜 기억이나 두려운 일이 불쑥 생각나서 마음이 툭 가라앉을 때가 있죠?\n\n그럴 땐 딱 10년 뒤의 미래 시점으로 지금의 아빠를 바라보세요. 우리가 옛날 일을 떠올리며 \"허허, 그때 참 그랬지\" 하고 웃어넘기게 되는 데는 보통 10년이라는 시간이 필요하거든요.\n\n10년 뒤의 아빠가 오늘의 아빠를 보며 인자하게 미소 짓고 있다고 상상해 보세요.\n\n그리고 과거와는 확실히 선을 긋는 거예요. 그건 이미 끝난 '경험'일 뿐, 지금의 아빠를 어찌할 수 없으니까요.",
+    shadow:"0 12px 60px rgba(160,190,220,0.3), 0 4px 30px rgba(180,210,220,0.2), 0 0 80px rgba(160,190,220,0.1)",
+    pageBg:"#eef6fb"
+  },
+  {
+    num:"02",
+    title:"나를 지켜주지 못했다는 미안함이 들 때",
+    body:"제가 지금 우리집안에서 극복할 의지를 가지고 살아있다는것!!\n\n이게바로 아빠가 승리했다는 가장 확실한 증거입니다.",
+    shadow:"0 12px 60px rgba(190,180,220,0.3), 0 4px 30px rgba(210,170,190,0.2), 0 0 80px rgba(190,180,220,0.1)",
+    pageBg:"#f5f0ff"
+  },
+  {
+    num:"03",
+    title:"마음이 불안하고 자꾸 가라앉을 때",
+    body:"햇살 아래서 흐르는 시간을 믿으세요.\n\n오늘의 나는 어제의 내가 아니다. 아픈 경험을 했기에 이제 대처하는 방법을 안다. 고통받지않을 방패막 하나가 더 추가되었다.",
+    shadow:"0 12px 60px rgba(160,190,220,0.3), 0 4px 30px rgba(220,210,180,0.2), 0 0 80px rgba(180,210,210,0.1)",
+    pageBg:"#f8f9ee"
+  },
+  {
+    num:"04",
+    title:"\"왜 나한테만 이런일이?\"",
+    body:"불투명한 미래가 몹시 무서웠고, \"왜 하필 나에게 이런 일이 생겼을까\" 원망하며 잠 못 이루던 밤도 있었지요. 아픈 기억이 데자뷔처럼 찾아와 심장이 뛰고 마음이 무너질 때면, 마치 그 불행이 다시 일어날 것만 같아 온몸이 굳어버리곤 했습니다.\n\n하지만 이제야 깨닫습니다. 그저 남들에게도 일어날 수 있는 일이 나에게도 일어난 것뿐이라는 사실을요.",
+    shadow:"0 12px 60px rgba(150,200,190,0.25), 0 4px 30px rgba(170,220,200,0.2), 0 0 80px rgba(150,200,190,0.08)",
+    pageBg:"#eefaf5"
+  },
+  {
+    num:"05",
+    title:"남은 인생이 아쉽고 두려워질 때",
+    body:"아빠, 죽을 때 사람들이 제일 후회하는 게 '더 사랑하지 못한 거'래.\n\n나쁜 기억이랑 싸우느라, 후회하느라, 우리가족 사랑해줄 시간 놓치지말아줘요. 지금 나 사랑해줘 더 많이 사랑해줘 어릴때처럼 ㅎㅎ\n\n문짝 뒤에 말 한마디, '나는 OOO이 자랑스러워 사랑스러워' 문장을 붙혀서 가족의 화목을 유지했던 우리아빠 다시 찾고싶어.",
+    shadow:"0 12px 60px rgba(210,170,160,0.25), 0 4px 30px rgba(210,170,185,0.2), 0 0 80px rgba(210,170,160,0.08)",
+    pageBg:"#fff5f0"
+  },
+  {
+    num:"06",
+    title:"회사에서 '적'을 만났을 때",
+    body:"누군가 아빠를 깎아내리려 할 때, 속으로 이렇게 말해줘요.\n\n'응, 그건 니 주장이고~ 내 가치는 내가 정해!'\n\n아빠, 남이 아빠한테 뭐라 하든 그건 그 사람의 감정이지 아빠의 진실이 아니야. 상대가 던지는 말은 그 사람의 못난 감정을 포장한 것일 뿐이에요. 그걸 받아서 품에 안고 다닐 필요 없어요.\n\n아빠의 가치는 회사 직급이나 누군가의 평가로 정해지는 게 아니잖아요. 우리 가족을 지켜온 그 묵묵한 시간들, 그게 아빠의 진짜 가치예요.\n\n그러니까 회사에서 힘든 일 있으면 집에 와서 나한테 얘기해. 내가 같이 욕해줄게 ㅎㅎ",
+    shadow:"0 12px 60px rgba(220,200,160,0.3), 0 4px 30px rgba(210,175,155,0.2), 0 0 80px rgba(220,200,160,0.1)",
+    pageBg:"#fef8ee"
+  },
+  {
+    num:"07",
+    title:"윗사람이 권위로 괴롭힐 때",
+    body:"아빠가 부족해서 버텨야하는게 아니라, 회사가 사람을 막 쓰는 거다. 그들은 권력관계를 기반으로 아빠를 흔들고있다. 즉 가스라이팅 성립에 부합하고, 나올준비 할 마음을 가져요. 천천히~\n\n다만 제가 제안드리고싶은 부분을 따로 정리중이오니 기다려주세요. 계약서 저한테 보여주실수 있나요?",
+    shadow:"0 12px 60px rgba(220,170,180,0.3), 0 4px 30px rgba(230,180,190,0.2), 0 0 80px rgba(220,170,180,0.1)",
+    pageBg:"#fdf2f4"
+  },
+  {
+    num:"08",
+    title:"나의 가장 아름다운 사치",
+    body:"나는 오늘을 살기로 했다. 미래의 평온을 오늘로 당겨와, 지금 내 앞에 놓인 차 한 잔의 온기를 온전히 누리는 것. 그것이 내가 남은 소풍 길에서 부릴 수 있는 가장 아름다운 사치임을 이제는 안다.\n\n아빠의 소풍길에 가장 아름다운 사치는 무엇인가요? 가족들을 생각하지 않고서요.",
+    shadow:"0 12px 60px rgba(200,180,170,0.3), 0 4px 30px rgba(210,190,180,0.2), 0 0 80px rgba(200,180,170,0.1)",
+    pageBg:"#f9f5f2"
+  },
+];
+
+let cur = 0, startX = 0;
+
+function render() {
+  const c = cards[cur];
+  const fades = document.querySelectorAll('.fade');
+  fades.forEach(e => e.classList.add('out'));
+
+  setTimeout(() => {
+    document.getElementById('card').style.background = '#ffffff';
+    document.getElementById('card').style.boxShadow = c.shadow;
+    document.body.style.background = c.pageBg;
+    document.body.style.transition = 'background 0.5s ease';
+    document.getElementById('num').textContent = c.num + ' / 0' + cards.length;
+    document.getElementById('title').textContent = (cur+1) + '. ' + c.title;
+    document.getElementById('body').textContent = c.body;
+    document.getElementById('article-link').href = 'article.html#section-' + (cur+1);
+
+    // dots
+    const dots = document.getElementById('dots');
+    dots.innerHTML = '';
+    cards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'rounded-full transition-all duration-300';
+      d.style.cssText = `width:${i===cur?'22px':'6px'};height:6px;background:${i===cur?'rgba(71,85,105,0.55)':'rgba(71,85,105,0.15)'};cursor:pointer`;
+      d.onclick = () => goTo(i);
+      dots.appendChild(d);
+    });
+
+    // buttons
+    document.getElementById('bp').style.color = cur===0 ? '#d1d5db' : '#374151';
+    document.getElementById('bp').style.borderColor = cur===0 ? '#e5e7eb' : '#9ca3af';
+    document.getElementById('bn').style.color = cur===cards.length-1 ? '#d1d5db' : '#374151';
+    document.getElementById('bn').style.borderColor = cur===cards.length-1 ? '#e5e7eb' : '#9ca3af';
+
+    // 마지막 카드: 메시지 입력 영역
+    document.getElementById('msg-area').classList.toggle('hidden', cur !== cards.length - 1);
+    if (cur === cards.length - 1) loadMessages();
+
+    // scroll to top of card
+    document.getElementById('card').scrollTop = 0;
+
+    setTimeout(() => fades.forEach(e => e.classList.remove('out')), 30);
+  }, 200);
+}
+
+function goTo(i) { if(i!==cur && i>=0 && i<cards.length){ cur=i; render(); } }
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+
+// swipe
+const card = document.getElementById('card');
+card.addEventListener('touchstart', e => startX=e.touches[0].clientX, {passive:true});
+card.addEventListener('touchend', e => { const d=startX-e.changedTouches[0].clientX; Math.abs(d)>40 && (d>0?next():prev()); });
+
+// 메시지 저장 (localStorage)
+function sendMsg() {
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const msgs = JSON.parse(localStorage.getItem('daddy-msgs') || '[]');
+  msgs.push({ text, date: new Date().toLocaleDateString('ko-KR') });
+  localStorage.setItem('daddy-msgs', JSON.stringify(msgs));
+
+  input.value = '';
+  loadMessages();
+}
+
+function loadMessages() {
+  const msgs = JSON.parse(localStorage.getItem('daddy-msgs') || '[]');
+  const items = document.getElementById('msg-items');
+  items.innerHTML = '';
+
+  if (msgs.length > 0) {
+    document.getElementById('msg-list').style.display = 'block';
+    msgs.slice().reverse().forEach(m => {
+      const div = document.createElement('div');
+      div.className = 'bg-white rounded-xl px-5 py-4 border border-gray-100';
+      div.innerHTML = `<p class="text-[14px] text-gray-600 leading-[1.9]" style="font-family:'Noto Serif KR',serif">${m.text.replace(/\n/g,'<br>')}</p><p class="text-[11px] text-gray-300 mt-2">${m.date}</p>`;
+      items.appendChild(div);
+    });
+  } else {
+    document.getElementById('msg-list').style.display = 'none';
+  }
+}
+
+function saveCard() {
+  const el = document.getElementById('card');
+  html2canvas(el, {
+    scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'dear-daddy-card-' + (cur+1) + '.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>

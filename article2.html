@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>나를 사랑하기위해 고른 (       )의 조각</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          sans: ['Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','sans-serif'],
+          serif: ['Noto Serif KR','Apple SD Gothic Neo','Malgun Gothic','serif'],
+        }
+      }
+    }
+  </script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:inherit; word-break:keep-all; }
+    body { font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif; background:#f8f6f3; -webkit-font-smoothing:antialiased; }
+    .section-title { font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif; font-weight:700; }
+    .section-body { font-family:'Noto Serif KR','Apple SD Gothic Neo',serif; font-weight:400; }
+  </style>
+</head>
+<body>
+
+<!-- 상단 바 -->
+<div class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-5 py-3 flex items-center justify-between">
+  <a href="articles.html" class="text-gray-400 text-[13px] flex items-center gap-1">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    목록으로
+  </a>
+  <button onclick="saveImage()" class="text-[13px] text-gray-500 border border-gray-300 rounded-full px-4 py-1.5 active:bg-gray-100 transition-all" style="font-weight:500">
+    이미지 저장
+  </button>
+</div>
+
+<!-- 아티클 본문 -->
+<div id="article" class="max-w-[420px] mx-auto px-6 py-10" style="background:#f8f6f3;">
+
+  <!-- 헤더 -->
+  <div class="text-center mb-12">
+    <h1 class="text-[20px] leading-[1.7] text-gray-800 mb-3" style="font-weight:700; font-family:'Noto Serif KR',serif;">나를 사랑하기위해 고른<br>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)의 조각</h1>
+    <p class="text-[13px] text-gray-400" style="font-weight:400">— 김승연 지음</p>
+  </div>
+
+  <div class="w-10 h-[1px] bg-gray-300 mx-auto mb-12"></div>
+
+  <!-- 본문 -->
+  <div class="mb-10">
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600">새벽 5시, 고요를 깨고 방문이 열리는 소리에 눈을 떴다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">어릴 적부터 배를 내놓고 자는 딸이 감기라도 걸릴까 봐 아빠는 매일 이른 새벽 조용히 이불을 덮어주러 오신다. 예전엔 세상모르고 잤을 텐데, 이제는 예민해진 잠귀 탓에 그 다정한 기척을 놓치지 못한다. 푹 자길 바라는 아빠의 마음을 알기에 깨어난 것이 못내 미안했지만, 나는 참지 못하고 아빠 하고 불렀다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-500 mt-4 pl-4 border-l-2 border-gray-200" style="font-style:italic">"우리 딸."</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">아빠는 나를 품에 꼭 안아주셨다. 참 오랜만에 맡아보는 아빠의 냄새. 그 품이 그리웠나 보다. 무거운 짐을 홀로 짊어지고, 요즘 회사가 어렵다며 축 처진 어깨를 한 아빠는 주말 새벽에도 일터로 향하신다. 내가 해줄 수 있는 건 그저 멀어지는 뒷모습을 향해 웃으며 힘차게 손을 흔드는 일뿐. 아빠를 보내고 돌아와 남몰래 눈물을 훔치며 다시 잠을 청했다.</p>
+
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">오전 7시 30분, 엄마의 부지런한 청소 소리에 다시 잠에서 깼다. 오늘은 엄마와 또 어떤 재미있는 일이 생길까 하는 설렘이 어지러운 마음을 대신했다. 우리는 서로의 잠자리를 살피고, 악몽은 꾸지 않았는지 안부를 물으며 하루를 시작했다. 밥하기 귀찮다는 엄마의 귀여운 투정에 오늘의 목적지는 현대백화점으로 정해졌다.</p>
+
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">외출을 준비하는 시간, 약기운 탓인지 시간은 자꾸만 기묘하게 점프했다. 5분이었던 것이 눈 깜빡하면 20분 단위로 성큼성큼 달아나 버렸다. 서두르는 엄마의 재촉과 도움 속에 겨우 옷을 입고 머리를 매만졌다. "우린 해냈어!!"라는 승전보를 울리며 차에 도착한 순간, 엄마의 비명이 터졌다. 차 키를 집에 두고 온 것이다.</p>
+
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">당황한 엄마는 습관처럼 아빠에게 전화를 걸어 감정을 쏟아내려 했다. 나는 엄마의 휴대폰을 뺏으며 단호하게 말했다. 기분이 태도가 되지 않게 하자고 약속했잖아.</p>
+  </div>
+
+  <div class="w-6 h-[1px] bg-gray-200 mx-auto my-10"></div>
+
+  <!-- 거울을 마주 보는 시간 -->
+  <div class="mb-10">
+    <h2 class="section-title text-[17px] text-gray-800 mb-4">거울을 마주 보는 시간</h2>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-500 pl-4 border-l-2 border-gray-200" style="font-style:italic">"엄마, 기분이 태도가 되지 않기로 했잖아. 기억 안 나?"</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">휴대폰을 뺏어 든 내 목소리는 차분했지만 단호했다. 아무 관련도 없는 아빠에게 감정을 쏟아내려던 엄마의 손이 멈칫했다. 사실 그 모습은 내가 가장 경계하는 나의 투영이기도 했다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">나의 조증이 엄마의 유전적 기질에서 왔다는 걸 알기에, 날선 엄마의 감정은 그대로 내 마음의 호수에 돌을 던지는 것과 같았다. 우리는 서로의 가장 아픈 부분을 비추는 거울이었다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-500 mt-4 pl-4 border-l-2 border-gray-200" style="font-style:italic">내가 아빠한테 전화 한 마디라도 더 하면, 나 당장 이 집에서 나갈 거야.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">배수진을 치듯 내뱉은 내 말에 무거운 침묵이 감돌았지만, 그건 거부의 침묵이 아니라 서로를 안타까워하며 각자의 감정을 갈무리하는 시간이었다. 서로가 바보처럼 닮아서, 그래서 더 서로를 가여워하고 슬퍼할 수밖에 없는 우리만의 이상하고도 깊은 사랑법이었다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-500 mt-4 pl-4 border-l-2 border-gray-200" style="font-style:italic">그래, 미안하다. 다시 다녀오자.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">엄마가 먼저 가라앉은 목소리로 다시 집을 들러 차 키를 챙겨 나오는 길, 바람이 아까의 열기를 식혀주었다. 언제 그랬냐는 듯 우리는 다시 오늘의 재미있는 일을 기대하는 모녀로 돌아와 있었다.</p>
+  </div>
+
+  <div class="w-6 h-[1px] bg-gray-200 mx-auto my-10"></div>
+
+  <!-- 셔츠 -->
+  <div class="mb-10">
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600">그렇게 우여곡절 끝에 도착한 현대백화점의 화려한 조명 아래서, 우리는 방금 전의 폭풍을 뒤로한 채 아이쇼핑의 즐거움 속으로 기분 좋게 뛰어들었다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">그 때!!! 운명처럼 마음을 뒤흔드는 셔츠 하나가 내 시야에 들어왔다. 그저 옷 한 벌일 뿐이었지만, 그것 하나면 오늘 나의 모든 여정이 완성될 것 같았다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">생각보다 높은 가격표를 본 엄마가 과소비 아니냐며 조심스레 물었을 때, 나는 입술을 떼는 대신 나에게 옷이란 무엇인가에 대해 깊이 침잠했다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">과거의 나는 해지고 구멍이 나도록, 색이 다 바래버릴 때까지 옷을 입던 김승연이었다. 하지만 지금의 나는 안다. 새 옷이 선사하는 환기가 내 삶을 얼마나 경쾌하게 뒤바꾸는지 말이다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-700 mt-6 font-medium">나를 가꾸고 꾸미는 행위는 사치가 아니라, 나를 사랑하는 법을 익히는 가장 정직한 수행이다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">이 희귀한 색감의 셔츠는 이제 단순한 직조물이 아니다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-500 mt-4 pl-4 border-l-2 border-gray-200" style="font-style:italic">"이것은 타인의 시선에 갇혀 있던 나를 꺼내어 나다운 색으로 세상에 드러내는 선언이자, 내 안의 고여 있는 공기를 순환시켜 다시 나아가게 만드는 강력한 동력이다."</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">결국 나를 귀하게 여기는 마음이 나를 숨 쉬게 한다. 이 셔츠는 내가 오늘을 버티고 내일을 기대하며, 기어이 살아가야 할 이유를 증명하는 다짐의 조각이다.</p>
+    <p class="section-body text-[15px] leading-[2.2] text-gray-600 mt-4">벌써부터 마음속에는 이 특별한 색의 셔츠를 입고 벚꽃 잎이 흩날리는 거리를 걷는 나의 모습이 그려진다... 그 찬란한 풍경 속에서 나는 그 누구보다 나로서 온전할 것같다.</p>
+  </div>
+
+  <!-- 마무리 -->
+  <div class="text-center mt-12 mb-8">
+    <p class="text-[13px] text-gray-400 leading-[2]" style="font-family:'Noto Serif KR',serif; font-style:italic">— 김승연</p>
+  </div>
+
+</div>
+
+<script>
+function saveImage() {
+  const btn = document.querySelector('button');
+  btn.textContent = '저장 중...';
+  btn.disabled = true;
+  html2canvas(document.getElementById('article'), {
+    scale: 2, backgroundColor: '#f8f6f3', useCORS: true, logging: false
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'dear-daddy-article2.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.textContent = '이미지 저장';
+    btn.disabled = false;
+  }).catch(() => { btn.textContent = '이미지 저장'; btn.disabled = false; });
+}
+</script>
+
+</body>
+</html>

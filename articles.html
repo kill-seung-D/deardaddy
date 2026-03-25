@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DEAR DADDY — 아티클</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          sans: ['Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic','sans-serif'],
+          serif: ['Noto Serif KR','Apple SD Gothic Neo','Malgun Gothic','serif'],
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:inherit; word-break:keep-all; }
+    body { font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif; background:#f4f3f0; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+    .card-thumb { transition: transform 0.3s ease, box-shadow 0.3s ease; cursor:pointer; }
+    .card-thumb:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 16px 40px rgba(0,0,0,0.15); }
+    .modal-overlay { transition: opacity 0.3s ease; }
+    .modal-overlay.hidden { opacity:0; pointer-events:none; }
+    .modal-content { transition: transform 0.3s ease, opacity 0.3s ease; }
+    .modal-overlay.hidden .modal-content { transform:translateY(40px); opacity:0; }
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.1); border-radius:10px; }
+  </style>
+</head>
+<body>
+
+<!-- 상단 바 -->
+<div class="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 px-5 md:px-10 py-3">
+  <div class="flex items-center justify-between">
+    <a href="index.html" class="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center no-underline transition-all hover:bg-gray-50">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <a href="index.html" class="text-[13px] text-gray-500 no-underline" style="font-weight:500">DEAR DADDY</a>
+  </div>
+</div>
+
+<!-- 메인 영역 -->
+<div class="max-w-[1200px] mx-auto px-6 md:px-10 py-10">
+
+  <!-- 타이틀 -->
+  <div class="mb-10">
+    <h1 class="text-[28px] md:text-[36px] text-gray-800 leading-tight" style="font-weight:700">아티클</h1>
+    <p class="text-[14px] text-gray-400 mt-2" style="font-weight:400">클릭하면 더 자세한 내용을 확인할 수 있습니다</p>
+  </div>
+
+  <!-- 책 표지 갤러리 -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+
+    <!-- 에세이 1 -->
+    <div class="card-thumb rounded-2xl overflow-hidden" onclick="openModal('article.html')" style="box-shadow:0 6px 24px rgba(0,0,0,0.08);">
+      <div class="aspect-[3/4] relative">
+        <img src="에세이1표지.jpg" class="w-full h-full object-cover" alt="80세의 내가 오늘의 나에게 보내는 미소" />
+      </div>
+      <div class="bg-white px-4 py-3">
+        <h3 class="text-[13px] text-gray-700 leading-[1.5]" style="font-weight:600">80세의 내가 오늘의 나에게<br>보내는 미소</h3>
+        <p class="text-[11px] text-gray-400 mt-1 mb-5">김승연 지음</p>
+      </div>
+    </div>
+
+    <!-- 에세이 2 -->
+    <div class="card-thumb rounded-2xl overflow-hidden" onclick="openModal('article2.html')" style="box-shadow:0 6px 24px rgba(0,0,0,0.08);">
+      <div class="aspect-[3/4] relative">
+        <img src="에세이2표지.png" class="w-full h-full object-cover" alt="나를 사랑하기위해 고른 조각" />
+      </div>
+      <div class="bg-white px-4 py-3">
+        <h3 class="text-[13px] text-gray-700 leading-[1.5]" style="font-weight:600">나를 사랑하기위해 고른<br>(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)의 조각</h3>
+        <p class="text-[11px] text-gray-400 mt-1 mb-5">김승연 지음</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 구분선 -->
+  <div class="w-full h-[1px] bg-gray-200 my-10"></div>
+
+  <!-- 챕터 카드 갤러리 -->
+  <div class="mb-6">
+    <h2 class="text-[18px] text-gray-700" style="font-weight:700">챕터별 보기</h2>
+    <p class="text-[13px] text-gray-400 mt-1">카드를 클릭하면 내용을 읽을 수 있습니다</p>
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-5" id="chapters"></div>
+
+</div>
+
+<!-- 모달 -->
+<div id="modal" class="modal-overlay hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.6);" onclick="closeModal(event)">
+  <div class="modal-content bg-white rounded-3xl w-full max-w-[600px] max-h-[90vh] overflow-y-auto relative" onclick="event.stopPropagation()">
+    <!-- 닫기 버튼 -->
+    <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center hover:bg-gray-700 transition-all">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="modal-body" class="px-7 py-10"></div>
+  </div>
+</div>
+
+<script>
+const chapters = [
+  { num:"01", title:"청춘을\n헤아리며", bg:"linear-gradient(160deg,#b8d4f0,#92b8e0)", color:"#3a6a9e",
+    heading:"1. 청춘을 헤아리며",
+    body:"세월이 흐르면 몸에 병이 깃들고 기력이 예전 같지 않은 것은 자연의 순리라지만, 나는 서른이 되면서부터 그것을 급격히 느끼게 되었다. 문득 부모님의 서른 살을 떠올려 본다. 우리 남매 둘을 데리고 참 많이도 돌아다니셨을 텐데, 아빠와 엄마도 쌓인 스트레스를 풀어야 했을 그 귀한 청춘을 우리가 막아섰던 건 아닌지 가끔 미안한 마음이 차오른다." },
+  { num:"02", title:"내게 필요한\n단 하나의\n지혜", bg:"linear-gradient(160deg,#d4c4e8,#b8a8d8)", color:"#6b5a8e",
+    heading:"2. 내게 필요한 단 하나의 지혜",
+    body:"거울 속 깊어진 주름을 보며 '이제 다 저물어가는구나' 싶어 마음이 헛헛해질 때도 있다. 하지만 인생이라는 긴 소풍을 거의 다 마쳐가는 내게 지금 필요한 것은 후회가 아니라, 이 순간을 어떻게 가장 평온하게 누릴 것인가 하는 지혜다." },
+  { num:"03", title:"10년 뒤의\n나를 마중\n나가다", bg:"linear-gradient(160deg,#a8dcd0,#80c8b8)", color:"#3a7a6a",
+    heading:"3. 10년 뒤의 나를 마중 나가다",
+    body:"나는 마음이 흔들릴 때면 아빠의 나이로 빙의하여, '10년 뒤의 나'를 지금 이 자리로 초대하곤 한다. 예순의 내가 일흔의 나를, 일흔의 내가 여든의 나를 현재로 데려오는 것이다. 가만히 눈을 감고 10년 뒤 내 모습을 그려본다. 그때의 나는 분명 오늘의 나를 보며 이렇게 말할 것이다.\n\n\"그때 참 좋은 나이였는데, 왜 그렇게 걱정하며 살았니? 무릎이 조금이라도 덜 아플 때 한 걸음 더 걷고, 눈이 조금이라도 더 잘 보일 때 꽃 한 송이 더 봐둘걸.\"" },
+  { num:"04", title:"오늘로\n당겨온 평온의\n면죄부", bg:"linear-gradient(160deg,#f0d8a8,#e8c888)", color:"#8a7040",
+    heading:"4. 오늘로 당겨온 평온의 면죄부",
+    body:"10년 뒤의 나는 이미 모든 풍파를 겪어낸 뒤의 평안한 얼굴을 하고 있다. 어차피 10년 뒤에 내가 \"그땐 참 괜찮았지\"라고 추억하며 평온해져 있을 거라면, 굳이 그 평온을 10년이나 기다릴 필요가 있을까. 미래의 내가 누릴 그 안도감을 오늘로 미리 당겨와 나에게 선물하기로 했다. \"어차피 미래의 나는 다 괜찮아졌을 테니, 지금의 나도 마음껏 괜찮아도 된다\"라고 스스로에게 면죄부를 주는 셈이다." },
+  { num:"05", title:"아빠의\n세월이 나에게\n가르쳐준 것들", bg:"linear-gradient(160deg,#f0b8b8,#e09898)", color:"#8a4a4a",
+    heading:"5. 아빠의 세월이 나에게 가르쳐준 것들",
+    body:"젊은 날에는 세상살이가 두려워 방황도 참 많이 했다. \"왜 하필 나에게 이런 일이 생겼을까\" 원망하며 과거의 상처를 곱씹느라 잠 못 이루던 밤도 있었다. 하지만 이제야 깨닫는다. 그저 남들에게도 일어날 수 있는 일이 나에게도 일어난 것뿐이라는 사실을... 소송, 사람, 돈, 대인관계. 서울에서 모두 맛본 그 쓴맛들을 생각하며 새삼 우리 아빠가 참 대단하다고 느낀다. 나는 겨우 8년인데 아빠는 몇십 년 이상이라니." },
+  { num:"06", title:"지나간\n아픔은 들판의\n바람일 뿐", bg:"linear-gradient(160deg,#b8d8b0,#98c890)", color:"#4a7a42",
+    heading:"6. 지나간 아픔은 들판의 바람일 뿐",
+    body:"비가 오면 비를 맞고, 바람이 불면 흔들리는 잡초처럼, 내 인생도 그저 자연스러운 흐름 속에 있었을 뿐인 거다. 과거의 아픈 기억이 데자뷔처럼 찾아와 가슴을 치더라도 이제는 겁내지 않는다. 그것은 이미 지나간 '경험'일 뿐, 결코 다시 일어나지 않는 일이다. 몸은 늙어가지만 내 마음은 오히려 아빠의 마음처럼 넓은 들판이 되어간다." },
+  { num:"07", title:"소풍길에서\n띄우는\n미소", bg:"linear-gradient(160deg,#b8c8f0,#98aee0)", color:"#4a5a8e",
+    heading:"7. 소풍길에서 띄우는 미소",
+    body:"인생은 천상병 시인의 말처럼 짧은 소풍이다. 소풍 끝에 돌아갈 집이 있다면, 남은 길은 그저 가벼운 발걸음으로 즐기면 그만이다. 이름 없는 들꽃이면 어떻고 잡초면 또 어떤가. 80세의 내가 오늘의 나를 보며 빙그레 웃고 있는데 말이다." },
+  { num:"08", title:"나의 가장\n아름다운\n사치", bg:"linear-gradient(160deg,#f0c8d8,#e0a8c0)", color:"#8a4a6a",
+    heading:"8. 나의 가장 아름다운 사치",
+    body:"나는 오늘을 살기로 했다. 미래의 평온을 오늘로 당겨와, 지금 내 앞에 놓인 차 한 잔의 온기를 온전히 누리는 것. 그것이 내가 남은 소풍 길에서 부릴 수 있는 가장 아름다운 사치임을 이제는 안다." },
+];
+
+const chaptersEl = document.getElementById('chapters');
+chapters.forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'card-thumb rounded-2xl overflow-hidden cursor-pointer';
+  el.style.boxShadow = '0 6px 24px rgba(0,0,0,0.08)';
+  el.onclick = () => openChapter(c);
+  el.innerHTML = `
+    <div class="aspect-[3/4] flex flex-col items-center justify-center px-4 py-6 text-center relative" style="background:${c.bg};">
+      <span class="absolute top-4 right-4 text-[10px] tracking-[0.2em] opacity-40" style="color:${c.color}; font-weight:300">${c.num}</span>
+      <div class="w-8 h-[1px] mb-4 opacity-30" style="background:${c.color}"></div>
+      <h3 class="text-[14px] md:text-[15px] leading-[1.6] whitespace-pre-line" style="color:${c.color}; font-weight:600; font-family:'Noto Serif KR',serif">${c.title}</h3>
+      <div class="w-8 h-[1px] mt-4 opacity-30" style="background:${c.color}"></div>
+    </div>
+  `;
+  chaptersEl.appendChild(el);
+});
+
+// 에세이 표지 모달 (iframe)
+function openModal(url) {
+  const modal = document.getElementById('modal');
+  const body = document.getElementById('modal-body');
+  body.innerHTML = '<iframe src="' + url + '" class="w-full border-0 rounded-2xl" style="height:80vh;"></iframe>';
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+// 챕터 모달 (텍스트만)
+function openChapter(c) {
+  const modal = document.getElementById('modal');
+  const body = document.getElementById('modal-body');
+  const paragraphs = c.body.split('\n\n').map(p =>
+    '<p class="text-[15px] leading-[2.2] text-gray-600 mt-4" style="font-family:\'Noto Serif KR\',serif; font-weight:400">' + p.replace(/\n/g,'<br>') + '</p>'
+  ).join('');
+
+  body.innerHTML = `
+    <div class="text-center mb-8">
+      <span class="text-[11px] text-gray-300 tracking-[0.3em]">${c.num}</span>
+      <h2 class="text-[20px] text-gray-800 mt-2 leading-[1.6]" style="font-weight:700; font-family:'Noto Serif KR',serif">${c.heading}</h2>
+      <div class="w-8 h-[1px] bg-gray-200 mx-auto mt-4"></div>
+    </div>
+    ${paragraphs}
+    <div class="text-center mt-10">
+      <p class="text-[12px] text-gray-300">— 김승연</p>
+    </div>
+  `;
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  const modal = document.getElementById('modal');
+  modal.classList.add('hidden');
+  document.getElementById('modal-body').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
